@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delicious Deliveries - About Us</title>
+    <link rel="icon" type="image/x-icon" href="/online_food_delivery/favicon.ico">
+   
+    <style>
+       :root {
+            --primary-color: #ff6b6b;
+            --secondary-color: #4ecdc4;
+            --background-color: #f8f9fa;
+            --text-color: #333;
+            --light-text-color: #666;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            background-image: url('/online_food_delivery/online_food_delivery/about.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        header {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            margin: 0;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            background-color: var(--secondary-color);
+        }
+
+        nav ul li {
+            margin: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background-color: var(--primary-color);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            background-image: url('/online_food_delivery/online_food_delivery/about.png');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 2rem;
+            border-radius: 10px;
+            position: relative;
+            max-width: 600px;
+        }
+
+        .hero-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background-color: #ff4757;
+        }
+
+        .about-section {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .about-section h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .about-section p {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-section ul {
+            list-style-type: disc;
+            margin-left: 2rem;
+            color: var(--text-color);
+        }
+
+        .about-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .team-section {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            flex-basis: calc(33.333% - 2rem);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+
+        .team-member h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member p {
+            font-size: 1rem;
+            color: var(--light-text-color);
+        }
+
+        .team-member input[type="file"] {
+            display: block;
+            margin: 1rem auto;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .team-member {
+                flex-basis: 100%;
+            }
+        }
+    
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('.team-member input[type="file"]').forEach(function(input) {
+                input.addEventListener('change', function() {
+                    if (this.files.length > 0) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.className = 'team-member-img';
+                            this.parentElement.insertBefore(img, this);
+                            
+                            // Save the image data to localStorage
+                            localStorage.setItem(`teamMemberImage_${this.id}`, e.target.result);
+                            
+                            // Remove the file input
+                            this.remove();
+                        };
+                        reader.readAsDataURL(this.files[0]);
+                    }
+                });
+
+                // Check if there's a saved image for this team member
+                const savedImage = localStorage.getItem(`teamMemberImage_${input.id}`);
+                if (savedImage) {
+                    const img = document.createElement('img');
+                    img.src = savedImage;
+                    img.className = 'team-member-img';
+                    input.parentElement.insertBefore(img, input);
+                    input.remove();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Delicious Deliveries</h1>
+        <nav>
+            <ul>
+                <li><a href="Home.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2>About Us</h2>
+                <p>Discover our story and meet the team that makes Delicious Deliveries the best food delivery service.</p>
+                <a href="#team" class="cta-button">Meet the Team</a>
+            </div>
+        </section>
+        <section class="about-section">
+            <h2>Who We Are</h2>
+            <p>Delicious Deliveries is your go-to online food delivery service, connecting you with the best local restaurants in your area. Our mission is to bring delightful culinary experiences right to your doorstep.</p>
+            <p>Founded in 2020, we've quickly grown to become a favorite among food lovers. We pride ourselves on our wide selection of cuisines, lightning-fast delivery, and commitment to customer satisfaction.</p>
+            <h2>Our Values</h2>
+            <ul>
+                <li>Quality: We partner only with the best restaurants to ensure top-notch food quality.</li>
+                <li>Speed: Our efficient delivery system ensures your food arrives hot and fresh.</li>
+                <li>Variety: From local specialties to international cuisines, we offer something for everyone.</li>
+                <li>Customer Service: Your satisfaction is our top priority.</li>
+            </ul>
+        </section>
+        <section id="team" class="team-section">
+            <div class="team-member">
+                <h3>Sujata Chudal</h3>
+                <p>Founder & CEO</p>
+                <input type="file" accept="image/*" id="team-member-1">
+            </div>
+            <div class="team-member">
+                <h3>Manisha Budaachhetri</h3>
+                <p>Chief Operating Officer</p>
+                <input type="file" accept="image/*" id="team-member-2">
+            </div>
+            <div class="team-member">
+                <h3>Sumitra Sherma</h3>
+                <p>Head of Customer Service</p>
+                <input type="file" accept="image/*" id="team-member-3">
+            </div>
+            <div class="team-member">
+                <h3>Manalisha Rajbanshi</h3>
+                <p>Head chef</p>
+                <input type="file" accept="image/*" id="team-member-4">
+            </div>
+            <div class="team-member">
+                <h3>Sadikshya Uprety</h3>
+                <p>Chief Technology Officer</p>
+                <input type="file" accept="image/*" id="team-member-5">
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Delicious Deliveries. All rights reserved.</p>
+    </footer>
+</body>
+</html>

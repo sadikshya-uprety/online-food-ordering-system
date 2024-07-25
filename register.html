@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Delicious Food Deliveries</title>
+    <link rel="icon" type="image/x-icon" href="/online_food_delivery/favicon.ico">
+    <style>
+        /* Root colors */
+        :root {
+            --primary-color: #ff6b6b;
+            --secondary-color: #4ecdc4;
+            --background-color: #f8f9fa;
+            --text-color: #333;
+            --light-text-color: #666;
+            --border-color: #ddd;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 5px 0;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            margin: 0;
+            padding: 1rem;
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            background-color: var(--secondary-color);
+        }
+
+        nav ul li {
+            margin: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            display: block;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 80px auto 0;
+            padding: 2rem;
+        }
+
+        .registration-form {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+        }
+
+        .registration-form h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .registration-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .registration-form form input,
+        .registration-form form select,
+        .registration-form form textarea {
+            padding: 0.75rem;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+        }
+
+        .registration-form form button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .registration-form form button:hover {
+            background-color: #ff4757;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
+        }
+
+        .registration-form .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .registration-form .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .registration-form .form-group input,
+        .registration-form .form-group select,
+        .registration-form .form-group textarea {
+            width: 100%;
+        }
+
+        .registration-form .form-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 0.5rem;
+        }
+
+        .registration-form .form-group .checkbox-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .registration-form .form-group .checkbox-group label {
+            margin: 0;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .registration-form {
+                padding: 1rem;
+            }
+
+            .registration-form h2 {
+                font-size: 1.5rem;
+            }
+
+            .registration-form form input,
+            .registration-form form select,
+            .registration-form form textarea {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Delicious Deliveries</h1>
+        <nav>
+            <ul>
+                <li><a href="Home.html">Home</a></li>
+
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="admin.html">Admin</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="register.html" class="active">Register</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="registration-form">
+            <h2>Register</h2>
+            <form>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Sadikshya Uprety" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="sadikshyauprety12@gmail.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="**********" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select id="role" name="role" required>
+                        <option value="" disabled selected>Select Role</option>
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="from-restaurant" name="ordering-location" value="restaurant">
+                    <label for="from-restaurant">Ordering from the restaurant</label>
+                </div>
+                <div class="form-group">
+                    <label for="table-number">Table Number (if ordering from the restaurant)</label>
+                    <input type="text" id="table-number" name="table-number" placeholder="Table No." disabled>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address (if ordering from home)</label>
+                    <textarea id="address" name="address" rows="4" placeholder="123 Street, City, Country" disabled></textarea>
+                </div>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Delicious Deliveries. All rights reserved.</p>
+    </footer>
+    <script>
+        // JavaScript to handle the visibility of form fields based on ordering location
+        document.addEventListener('DOMContentLoaded', function () {
+            const fromRestaurantCheckbox = document.getElementById('from-restaurant');
+            const tableNumberInput = document.getElementById('table-number');
+            const addressTextarea = document.getElementById('address');
+
+            fromRestaurantCheckbox.addEventListener('change', function () {
+                if (fromRestaurantCheckbox.checked) {
+                    tableNumberInput.disabled = false;
+                    addressTextarea.disabled = true;
+                } else {
+                    tableNumberInput.disabled = true;
+                    addressTextarea.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

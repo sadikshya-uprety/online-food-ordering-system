@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delicious Deliveries - Menu</title>
+    <link rel="icon" type="image/x-icon" href="/online_food_delivery/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+         :root {
+            --primary-color: #ff6b6b;
+            --secondary-color: #4ecdc4;
+            --background-color: #f8f9fa;
+            --text-color: #333;
+            --light-text-color: #666;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 5px 0;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            margin: 0;
+            padding: 1rem;
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            background-color: var(--secondary-color);
+        }
+
+        nav ul li {
+            margin: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            display: block;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 120px auto 0;
+            padding: 2rem;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .food-options {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .food-options button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            margin: 0 0.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .food-options button:hover,
+        .food-options button.active {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+        }
+
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .food-item {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .food-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .food-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: all 0.3s ease;
+            display: none; /* Hide image by default */
+        }
+
+        .file-upload-label {
+            display: inline-block;
+            padding: 0.8rem 1rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        .file-upload-label:hover {
+            background-color: var(--primary-color);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .food-item-content {
+            padding: 1.5rem;
+        }
+
+        .food-item h3 {
+            margin: 0 0 0.5rem;
+            color: var(--text-color);
+            font-size: 1.3rem;
+        }
+
+        .food-item p {
+            color: var(--light-text-color);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .food-item .price {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .food-item button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        .food-item button:hover {
+            background-color: #ff4757;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
+        }
+
+        .cart {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .cart h3 {
+            margin: 0 0 10px;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .cart ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .cart ul li {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .cart ul li:last-child {
+            border-bottom: none;
+        }
+
+        .cart .total {
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 1.2rem;
+        }
+
+        .cart .empty-message {
+            text-align: center;
+            color: var(--light-text-color);
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .food-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .food-options {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .food-options button {
+                margin: 0.5rem 0;
+                width: 200px;
+            }
+            .cart {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .cart h3 {
+            margin: 0 0 10px;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .cart ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .cart ul li {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .cart ul li:last-child {
+            border-bottom: none;
+        }
+
+        .cart .total {
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 1.2rem;
+        }
+
+        .cart .empty-message {
+            text-align: center;
+            color: var(--light-text-color);
+        }
+    
+            .cart {
+                position: static;
+                margin: 20px auto;
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cart">
+        <h3>Your Cart</h3>
+        <ul id="cart-items"></ul>
+        <div class="total">Total: ₹<span id="cart-total">0</span></div>
+    </div>
+    <header>
+        <h1>Delicious Deliveries</h1>
+        <nav>
+            <ul>
+                <li><a href="Home.html">Home</a></li>
+                <li><a href="menu.html" class="active">Menu</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Our Menu</h2>
+        <section id="menu">
+            <div class="food-options">
+                <button id="all-btn" class="active">All</button>
+                <button id="veg-btn">Vegetarian</button>
+                <button id="non-veg-btn">Non-Vegetarian</button>
+                <button id="desserts-btn">Desserts</button>
+                <button id="beverages-btn">Beverages</button>
+            </div>
+            <div class="food-grid">
+                <!-- Food items will be dynamically added here -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Delicious Deliveries. All rights reserved.</p>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const foodItems = [
+            { name: "Paneer Butter Masala", description: "Creamy and rich paneer dish with butter and spices.", price: 250, category: "veg" },
+                
+                { name: "Vegetable Biryani", description: "Flavorful rice dish with mixed vegetables and spices.", price: 200, category: "veg" },
+                { name: "Palak Paneer", description: "Paneer cubes in a creamy spinach gravy.", price: 220, category: "veg" },
+                { name: "Margherita Pizza", description: "Classic delight with 100% real mozzarella cheese.", price: 300, category: "veg" },
+                { name: "Aloo Gobi", description: "Potato and cauliflower dish with Indian spices.", price: 180, category: "veg" },
+                { name: "Chole Bhature", description: "Spicy chickpeas served with fried bread.", price: 150, category: "veg" },
+                { name: "Chicken Tikka Masala", description: "Grilled chicken in a creamy tomato sauce.", price: 280, category: "non-veg" },
+                { name: "Butter Chicken", description: "Chicken in a rich and creamy tomato sauce.", price: 300, category: "non-veg" },
+                { name: "Chicken Chowmein", description: "Stir-fried noodles with chicken and vegetables.", price: 220, category: "non-veg" },
+                { name: "Chicken Kabab Biryani", description: "Biryani rice with flavorful chicken kababs.", price: 280, category: "non-veg" },
+                { name: "Chicken Momo", description: "Steamed dumplings filled with spiced chicken.", price: 120, category: "non-veg" },
+                { name: "Gulab Jamun", description: "Sweet deep-fried balls soaked in sugar syrup.", price: 80, category: "desserts" },
+                { name: "Rasgulla", description: "Soft and spongy cheese balls in syrup.", price: 70, category: "desserts" },
+                { name: "Jalebi", description: "Crispy, sweet, and syrupy spiral dessert.", price: 60, category: "desserts" },
+                { name: "Chocolate Brownie", description: "Rich and gooey chocolate brownie.", price: 100, category: "desserts" },
+                { name: "Ice Cream Sundae", description: "Ice cream topped with sauces and nuts.", price: 120, category: "desserts" },
+                { name: "Kaju Katli", description: "Delicious cashew nut fudge.", price: 200, category: "desserts" },
+                { name: "Mango Lassi", description: "Sweetened yogurt drink with mango flavor.", price: 80, category: "beverages" },
+                { name: "Cold Coffee", description: "Chilled coffee drink with milk and sugar.", price: 100, category: "beverages" },
+                { name: "Coca-Cola", description: "Classic cola beverage.", price: 50, category: "beverages" },
+                { name: "Sprite", description: "Refreshing lemon-lime soda.", price: 50, category: "beverages" },
+                { name: "Lemon Iced Tea", description: "Chilled tea with a hint of lemon.", price: 70, category: "beverages" }
+            ];
+            
+            const foodGrid = document.querySelector(".food-grid");
+            const cart = [];
+
+            function createFoodItem(item) {
+                const foodItem = document.createElement("div");
+                foodItem.classList.add("food-item");
+
+                const img = document.createElement("img");
+                img.alt = item.name;
+                foodItem.appendChild(img);
+
+                const fileUploadLabel = document.createElement("label");
+                fileUploadLabel.classList.add("file-upload-label");
+                fileUploadLabel.innerText = "Choose a file";
+                foodItem.appendChild(fileUploadLabel);
+
+                const fileInput = document.createElement("input");
+                fileInput.type = "file";
+                fileInput.accept = "image/*";
+                fileInput.classList.add("hidden");
+
+                fileInput.addEventListener("change", function () {
+                    if (fileInput.files && fileInput.files[0]) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            const imageData = e.target.result;
+                            img.src = imageData;
+                            img.style.display = "block";
+                            fileUploadLabel.remove();
+                            localStorage.setItem(`foodImage_${item.name}`, imageData);
+                        };
+                        reader.readAsDataURL(fileInput.files[0]);
+                    }
+                });
+
+                fileUploadLabel.appendChild(fileInput);
+
+                // Load saved image from localStorage
+                const savedImage = localStorage.getItem(`foodImage_${item.name}`);
+                if (savedImage) {
+                    img.src = savedImage;
+                    img.style.display = "block";
+                    fileUploadLabel.remove();
+                }
+
+                const foodItemContent = document.createElement("div");
+                foodItemContent.classList.add("food-item-content");
+
+                const foodName = document.createElement("h3");
+                foodName.innerText = item.name;
+                foodItemContent.appendChild(foodName);
+
+                const foodDescription = document.createElement("p");
+                foodDescription.innerText = item.description;
+                foodItemContent.appendChild(foodDescription);
+
+                const foodPrice = document.createElement("div");
+                foodPrice.classList.add("price");
+                foodPrice.innerText = `₹${item.price}`;
+                foodItemContent.appendChild(foodPrice);
+
+                const addToCartButton = document.createElement("button");
+                addToCartButton.innerText = "Add to Cart";
+                addToCartButton.addEventListener("click", () => addToCart(item));
+                foodItemContent.appendChild(addToCartButton);
+
+                foodItem.appendChild(foodItemContent);
+
+                return foodItem;
+            }
+
+            function displayFoodItems(category) {
+                foodGrid.innerHTML = "";
+                foodItems.forEach(item => {
+                    if (category === "all" || item.category === category) {
+                        foodGrid.appendChild(createFoodItem(item));
+                    }
+                });
+            }
+
+            function addToCart(item) {
+                const existingItem = cart.find(cartItem => cartItem.name === item.name);
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    cart.push({ ...item, quantity: 1 });
+                }
+                updateCart();
+            }
+
+            function updateCart() {
+                const cartItems = document.getElementById("cart-items");
+                const cartTotal = document.getElementById("cart-total");
+                cartItems.innerHTML = "";
+                let total = 0;
+                cart.forEach(item => {
+                    const li = document.createElement("li");
+                    li.innerHTML = `
+                        ${item.name} - <span class="item-quantity">${item.quantity}</span> 
+                        <span class="item-price">₹${item.price * item.quantity}</span>
+                        <button class="remove-item" data-name="${item.name}">Remove</button>
+                    `;
+                    cartItems.appendChild(li);
+                    total += item.price * item.quantity;
+                });
+                cartTotal.innerText = total;
+
+                document.querySelectorAll(".remove-item").forEach(button => {
+                    button.addEventListener("click", function() {
+                        const itemName = this.getAttribute("data-name");
+                        removeFromCart(itemName);
+                    });
+                });
+            }
+
+            function removeFromCart(itemName) {
+                const index = cart.findIndex(item => item.name === itemName);
+                if (index !== -1) {
+                    if (cart[index].quantity > 1) {
+                        cart[index].quantity--;
+                    } else {
+                        cart.splice(index, 1);
+                    }
+                    updateCart();
+                }
+            }
+
+            displayFoodItems("all");
+
+            document.getElementById("all-btn").addEventListener("click", () => displayFoodItems("all"));
+            document.getElementById("veg-btn").addEventListener("click", () => displayFoodItems("veg"));
+            document.getElementById("non-veg-btn").addEventListener("click", () => displayFoodItems("non-veg"));
+            document.getElementById("desserts-btn").addEventListener("click", () => displayFoodItems("desserts"));
+            document.getElementById("beverages-btn").addEventListener("click", () => displayFoodItems("beverages"));
+        });
+    </script>
+</body>
+</html>

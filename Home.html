@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delicious Food Deliveries - Home</title>
+    <link rel="icon" type="image/x-icon" href="/online_food_delivery/favicon.ico">
+    <style>
+        :root {
+            --primary-color: #ff6b6b;
+            --secondary-color: #4ecdc4;
+            --background-color: #f8f9fa;
+            --text-color: #333;
+            --light-text-color: #666;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 5px 0;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            margin: 0;
+            padding: 1rem;
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            background-color: var(--secondary-color);
+        }
+
+        nav ul li {
+            margin: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            display: block;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 80px auto 0;
+            padding: 2rem;
+        }
+
+        .hero {
+            background-image: url('/online_food_delivery/bg.jpeg');
+            background-size: cover;
+            background-position: center;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 3rem;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 3rem;
+            border-radius: 15px;
+            position: relative;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .cta-button:hover {
+            background-color: #ff4757;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .feature {
+            flex-basis: calc(33.333% - 2rem);
+            text-align: center;
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature img {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover img {
+            transform: scale(1.1);
+        }
+
+        .feature h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .features {
+                flex-direction: column;
+            }
+
+            .feature {
+                flex-basis: 100%;
+            }
+
+            .hero-content h2 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+        }
+
+        .admin-panel {
+            display: none;
+            margin: 80px auto 0;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-panel h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+        }
+
+        .admin-section {
+            margin-bottom: 2rem;
+        }
+
+        .admin-section h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .admin-section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+
+        .admin-section table th,
+        .admin-section table td {
+            border: 1px solid #ddd;
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        .admin-section table th {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .admin-section table td {
+            background-color: #f9f9f9;
+        }
+
+        .admin-section .add-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+
+        .admin-section .add-button:hover {
+            background-color: #ff4757;
+        }
+
+        .file-upload {
+            margin-bottom: 1rem;
+        }
+
+        .explore-foods {
+            margin-top: 3rem;
+        }
+
+        .explore-foods h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+        }
+
+        .explore-foods .food-item {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .explore-foods .food-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Delicious Deliveries</h1>
+        <nav>
+            <ul>
+                <li><a href="Home.html" class="active">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="admin.html">Admin</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Welcome to Delicious Deliveries</h2>
+                <p>Your favorite foods delivered fast at your door.</p>
+                <a href="menu.html" class="cta-button">Order Now</a>
+            </div>
+        </section>
+        <section class="features">
+            <div class="feature">
+                <img src="/online_food_delivery/online_food_delivery/fast-delivery.png" alt="Feature 1">
+                <h3>Fast Delivery</h3>
+                <p>Get your food delivered to you in no time with our super-fast delivery service.</p>
+            </div>
+            <div class="feature">
+                <img src="/online_food_delivery/online_food_delivery/fresh ingredients.jpeg" alt="Feature 2">
+                <h3>Quality Food</h3>
+                <p>We serve high-quality, delicious food prepared by our top chefs.</p>
+            </div>
+            <div class="feature">
+                <img src="/online_food_delivery/online_food_delivery/wideselection.jpeg" alt="Feature 3">
+                <h3>Best Offers</h3>
+                <p>Enjoy the best offers and discounts on your favorite meals.</p>
+            </div>
+        </section>
+        <section class="explore-foods">
+            <h2>Explore Our Foods</h2>
+            <div class="food-item">
+                <img src="/online_food_delivery/online_food_delivery/margherita-pizza-feature.jpeg" alt="Food 1">
+                <h3>Margherita Pizza</h3>
+                <p>A classic delight with 100% real mozzarella cheese.</p>
+            </div>
+            <div class="food-item">
+                <img src="/online_food_delivery/online_food_delivery/chicken chowmein.jpeg" alt="Food 2">
+                <h3>chicken chowmein</h3>
+                <p>A delicious veggie patty with fresh noodles, tomato, and cheese.</p>
+            </div>
+            <div class="food-item">
+                <img src="/online_food_delivery/online_food_delivery/Dark-Chocolate-Vegan-Brownie.jpeg" alt="Food 3">
+                <h3>Chocolate Cake</h3>
+                <p>Rich and moist chocolate cake with a creamy chocolate frosting.</p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Delicious Deliveries. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle file upload and hide file upload button
+            const fileInput = document.querySelector('.file-upload input[type="file"]');
+            const fileUploadButton = document.querySelector('.file-upload');
+
+            fileInput.addEventListener('change', function() {
+                if (fileInput.files.length > 0) {
+                    fileUploadButton.classList.add('hidden');
+                }
+            });
+        });
+
+        // Scroll header effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

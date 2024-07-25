@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delicious Deliveries - Admin Panel</title>
+    <link rel="icon" type="image/x-icon" href="/online_food_delivery/favicon.ico">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-form {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .login-form h2 {
+            margin-bottom: 20px;
+        }
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .login-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .login-form button:hover {
+            background-color: #45a049;
+        }
+        .admin-panel {
+            display: none;
+        }
+        .tab-container {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .tab {
+            padding: 10px 20px;
+            background-color: #f1f1f1;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+        }
+        .tab:hover {
+            background-color: #ddd;
+        }
+        .tab.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .add-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .add-btn:hover {
+            background-color: #45a049;
+        }
+         .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-container">
+            <div class="login-form">
+                <h2>Admin Login</h2>
+                <input type="password" id="password" placeholder="Enter password">
+                <button onclick="login()">Login</button>
+            </div>
+        </div>
+        <div class="admin-panel">
+            <h1>Admin Panel</h1>
+            <div class="tab-container">
+                <button class="tab active" onclick="openTab('categories')">Food Categories</button>
+                <button class="tab" onclick="openTab('menu')">Food Menu</button>
+                <button class="tab" onclick="openTab('orders')">Food Orders</button>
+            </div>
+            <div id="categories" class="tab-content">
+                <h2>Food Categories</h2>
+                <a href="#" class="add-btn">Add Category</a>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Category Name</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Vegetarian</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Non-Vegetarian</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Desserts</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Beverages</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="menu" class="tab-content" style="display:none;">
+                <h2>Food Menu</h2>
+                <a href="#" class="add-btn">Add Menu Item</a>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Item Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Paneer Butter Masala</td>
+                        <td>Vegetarian</td>
+                        <td>₹250</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Vegetable Biryani</td>
+                        <td>Vegetarian</td>
+                        <td>₹200</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Palak Paneer</td>
+                        <td>Vegetarian</td>
+                        <td>₹220</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Margherita Pizza</td>
+                        <td>Vegetarian</td>
+                        <td>₹300</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Aloo Gobi</td>
+                        <td>Vegetarian</td>
+                        <td>₹180</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Chole Bhature</td>
+                        <td>Vegetarian</td>
+                        <td>₹150</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Chicken Tikka Masala</td>
+                        <td>Non-Vegetarian</td>
+                        <td>₹280</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Butter Chicken</td>
+                        <td>Non-Vegetarian</td>
+                        <td>₹300</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>Chicken Chowmein</td>
+                        <td>Non-Vegetarian</td>
+                        <td>₹220</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>Chicken Kebab Biryani</td>
+                        <td>Non-Vegetarian</td>
+                        <td>₹280</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>Chicken Momo</td>
+                        <td>Non-Vegetarian</td>
+                        <td>₹120</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>Gulab Jamun</td>
+                        <td>Desserts</td>
+                        <td>₹80</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>Rasgulla</td>
+                        <td>Desserts</td>
+                        <td>₹70</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td>Jalebi</td>
+                        <td>Desserts</td>
+                        <td>₹60</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td>Chocolate Brownie</td>
+                        <td>Desserts</td>
+                        <td>₹100</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>16</td>
+                        <td>Ice Cream Sundae</td>
+                        <td>Desserts</td>
+                        <td>₹120</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>17</td>
+                        <td>Kaju Katli</td>
+                        <td>Desserts</td>
+                        <td>₹200</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>18</td>
+                        <td>Mango Lassi</td>
+                        <td>Beverages</td>
+                        <td>₹80</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>19</td>
+                        <td>Cold Coffee</td>
+                        <td>Beverages</td>
+                        <td>₹100</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>20</td>
+                        <td>Coca Cola</td>
+                        <td>Beverages</td>
+                        <td>₹50</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>21</td>
+                        <td>Sprite</td>
+                        <td>Beverages</td>
+                        <td>₹50</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>22</td>
+                        <td>Lemon Iced Tea</td>
+                        <td>Beverages</td>
+                        <td>₹70</td>
+                        <td>
+                            <a href="#">Edit</a> |
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="orders" class="tab-content" style="display:none;">
+                <h2>Food Orders</h2>
+                <table>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Items</th>
+                        <th>quantity</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr>
+                        <td>1001</td>
+                        <td>Manisha Budachhetri</td>
+                        <td>Paneer Butter Masala, Mango Lassi</td>
+                        <td>2 plates each</td>
+                        <td>₹330</td>
+                        <td>Pending</td>
+                        <td>
+                            <a href="#">Update Status</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1002</td>
+                        <td>Sujata Chudal</td>
+                        <td>Chicken Tikka Masala, Butter Chicken</td>
+                        <td>1 plate each</td>
+                        <td>₹580</td>
+                        <td>Delivered</td>
+                        <td>
+                            <a href="#">View Details</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1003</td>
+                        <td>Manalisa Rajbanshi</td>
+                        <td>Vegetable Biryani, Gulab Jamun</td>
+                        <td>3 plates each</td>
+                        <td>₹280</td>
+                        <td>Pending</td>
+                        <td>
+                            <a href="#">Update Status</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1004</td>
+                        <td>Sumitra Sherma</td>
+                        <td>Chicken Chowmein, Cold Coffee</td>
+                        <td>2 each</td>
+                        <td>₹320</td>
+                        <td>Pending</td>
+                        <td>
+                            <a href="#">Update Status</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            const password = document.getElementById('password').value;
+            if (password === 'admin123') {
+                document.querySelector('.login-container').style.display = 'none';
+                document.querySelector('.admin-panel').style.display = 'block';
+            } else {
+                alert('Incorrect password. Please try again.');
+            }
+        }
+
+        function openTab(tabName) {
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+            document.getElementById(tabName).style.display = 'block';
+
+            const tabs = document.getElementsByClassName('tab');
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].className = tabs[i].className.replace(" active", "");
+            }
+            event.currentTarget.className += " active";
+        }
+    </script>
+</body>
+</html>
